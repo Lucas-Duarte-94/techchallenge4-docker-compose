@@ -11,9 +11,7 @@ services:
       - fiap_network
 
   estoque-service:
-    build:
-      context: ./fiap-estoque-service
-      dockerfile: Dockerfile
+    image: lucasduarte1603/estoque-service
     container_name: estoque-service
     ports:
       - "8083:8083"
@@ -25,9 +23,7 @@ services:
       - fiap_network
 
   produto-service:
-    build:
-      context: ./fiap-produto-service
-      dockerfile: Dockerfile
+    image: lucasduarte1603/produto-service
     container_name: produto-service
     ports:
       - "8082:8082"
@@ -39,9 +35,7 @@ services:
       - fiap_network
 
   pedido-service:
-    build:
-      context: ./fiap-pedido-service
-      dockerfile: Dockerfile
+    image: lucasduarte1603/pedido-service
     container_name: pedido-service
     ports:
       - "8081:8081"
@@ -53,9 +47,7 @@ services:
       - fiap_network
 
   pedido-receiver:
-    build:
-      context: ./fiap-pedido-receiver
-      dockerfile: Dockerfile
+    image: lucasduarte1603/pedido-receiver
     container_name: pedido-receiver
     ports:
       - "8080:8080"
@@ -67,9 +59,7 @@ services:
       - fiap_network
 
   cliente-service:
-    build:
-      context: ./fiap-cliente-service
-      dockerfile: Dockerfile
+    image: lucasduarte1603/cliente-service
     container_name: cliente-service
     ports:
       - "8084:8084"
@@ -79,9 +69,7 @@ services:
       - fiap_network
 
   pagamento-service:
-    build:
-      context: ./fiap-pagamento-service
-      dockerfile: Dockerfile
+    image: lucasduarte1603/pagamento-service
     container_name: pagamento-service
     ports:
       - "8085:8085"

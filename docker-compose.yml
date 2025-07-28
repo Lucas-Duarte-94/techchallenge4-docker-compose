@@ -1,0 +1,95 @@
+
+version: '3.9'
+services:
+  rabbitmq-techchallenge:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-techchallenge
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - fiap_network
+
+  estoque-service:
+    build:
+      context: ./fiap-estoque-service
+      dockerfile: Dockerfile
+    container_name: estoque-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - rabbitmq-techchallenge
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq-techchallenge
+    networks:
+      - fiap_network
+
+  produto-service:
+    build:
+      context: ./fiap-produto-service
+      dockerfile: Dockerfile
+    container_name: produto-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - rabbitmq-techchallenge
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq-techchallenge
+    networks:
+      - fiap_network
+
+  pedido-service:
+    build:
+      context: ./fiap-pedido-service
+      dockerfile: Dockerfile
+    container_name: pedido-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - rabbitmq-techchallenge
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq-techchallenge
+    networks:
+      - fiap_network
+
+  pedido-receiver:
+    build:
+      context: ./fiap-pedido-receiver
+      dockerfile: Dockerfile
+    container_name: pedido-receiver
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq-techchallenge
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq-techchallenge
+    networks:
+      - fiap_network
+
+  cliente-service:
+    build:
+      context: ./fiap-cliente-service
+      dockerfile: Dockerfile
+    container_name: cliente-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - rabbitmq-techchallenge
+    networks:
+      - fiap_network
+
+  pagamento-service:
+    build:
+      context: ./fiap-pagamento-service
+      dockerfile: Dockerfile
+    container_name: pagamento-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - rabbitmq-techchallenge
+    networks:
+      - fiap_network
+
+networks:
+  fiap_network:
+    driver: bridge

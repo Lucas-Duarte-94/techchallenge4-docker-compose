@@ -1,0 +1,358 @@
+type: collection.insomnia.rest/5.0
+name: tech challenge 4
+meta:
+  id: wrk_d6191ebdd0b441b6834b9ae3ee854cd4
+  created: 1752711934749
+  modified: 1752711934749
+  description: ""
+collection:
+  - name: Pedido Producer
+    meta:
+      id: fld_67f2d1c3624841c291d9f8ef96b34658
+      created: 1752711980727
+      modified: 1752711980727
+      sortKey: -1752711980727
+      description: ""
+    children:
+      - url: "{{ _.url }}/pedido"
+        name: New Request
+        meta:
+          id: req_322a72245bc04d899d07d0adc2edbf6c
+          created: 1752711983416
+          modified: 1753638507769
+          isPrivate: false
+          description: ""
+          sortKey: -1752711983416
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"pedidos": [
+            		{
+            			"productSKU": "cam-masc-ver-g",
+            			"qtd": 2		
+            		}
+            	],
+            	"userID": "a1b2c3d4-e5f6-7890-1234-123456abcdef",
+            	"paymentInfo": {
+            		"metodoPagamento": "CARTAO",
+            		"creditCard": {
+            			"creditCardNumber": "1234-5678-9012-3456",
+            			"CVC": "123",
+            			"ownerName": "João da Silva",
+            			"validTo": "12/28"
+            		}
+            	}
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Produto Service
+    meta:
+      id: fld_d1b5780e80044ee7a775c3d995dc24e3
+      created: 1752934642183
+      modified: 1752934642183
+      sortKey: -1752934642183
+      description: ""
+    children:
+      - url: http://localhost:8082/produto
+        name: New Request
+        meta:
+          id: req_a63116a6526c46fa9b1169c812e7bfa3
+          created: 1752934646018
+          modified: 1752934668059
+          isPrivate: false
+          description: ""
+          sortKey: -1752934646018
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8082/produto/cam-masc-ver-g
+        name: New Request
+        meta:
+          id: req_2bb3940345ff4463b6632925ef268934
+          created: 1752957806823
+          modified: 1753124235054
+          isPrivate: false
+          description: ""
+          sortKey: -1752957806823
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Pedido Service
+    meta:
+      id: fld_24637affd61647f58116474d42701620
+      created: 1752947885600
+      modified: 1752947885600
+      sortKey: -1752947885600
+      description: ""
+  - name: Estoque Service
+    meta:
+      id: fld_79218e78ecf444e48ce6aa99c71126e6
+      created: 1753031828737
+      modified: 1753031828737
+      sortKey: -1753031828737
+      description: ""
+    children:
+      - url: http://localhost:8083/estoque/cam-fem-azu-p
+        name: get estoque
+        meta:
+          id: req_9caef7ed09bf46f8bbe8f78e444196f3
+          created: 1753031831334
+          modified: 1753749133050
+          isPrivate: false
+          description: ""
+          sortKey: -1753031831334
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8083/estoque
+        name: reservar estoque
+        meta:
+          id: req_331f7db031684aacaca86279f02264d1
+          created: 1753052218372
+          modified: 1753052408806
+          isPrivate: false
+          description: ""
+          sortKey: -1753052218372
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"pedidoId": "a1b2c3d4-e5f6-7890-9876-567890abcdef",
+            	"pedidos": [
+            		{
+            			"productSKU": "cam-fem-azu-p",
+            			"qtd": 2
+            		}
+            	]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8083/estoque/cancel
+        name: set status to cancel
+        meta:
+          id: req_ff71c2ee1e924c719a833f4d0e189453
+          created: 1753058589514
+          modified: 1753751372956
+          isPrivate: false
+          description: ""
+          sortKey: -1753058589514
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"pedidoId": "a1b2c3d4-e5f6-7890-9876-567890abcdef"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8083/estoque/confirm
+        name: set status to confirmed
+        meta:
+          id: req_719917a2a8bb4bd99f31aa44f00fdba7
+          created: 1753058634001
+          modified: 1753751363221
+          isPrivate: false
+          description: ""
+          sortKey: -1753055403943
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"pedidoId": "a1b2c3d4-e5f6-7890-9876-567890abcdef"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Cliente Service
+    meta:
+      id: fld_a4f8dcbd16c34961b490b1818b8d8e0b
+      created: 1753378568316
+      modified: 1753378568316
+      sortKey: -1753378568316
+      description: ""
+    children:
+      - url: http://localhost:8084/endereco
+        name: Create Endereco
+        meta:
+          id: req_70d31c4dc44249a69c6457a906a53f69
+          created: 1753378592535
+          modified: 1753378878426
+          isPrivate: false
+          description: ""
+          sortKey: -1753378592535
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "rua": "Avenida Paulista",
+              "numero": "1580",
+              "cep": "01310-200",
+              "complemento": "Apartamento 101, Bloco B",
+              "usuarioId": "a1b2c3d4-e5f6-7890-1234-123456abcdef"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8084/endereco/a1b2c3d4-e5f6-7890-1234-123456abcdef
+        name: Get Endereco By Usuario Id
+        meta:
+          id: req_5905f0e5b760407dad43782c5e67563b
+          created: 1753378837669
+          modified: 1753757166344
+          isPrivate: false
+          description: ""
+          sortKey: -1753378837669
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8084/usuario/list/a1b2c3d4-e5f6-7890-1234-567890abcdef
+        name: List Users
+        meta:
+          id: req_3471a286e7eb472c8091208384d480ba
+          created: 1753378973245
+          modified: 1753759355057
+          isPrivate: false
+          description: ""
+          sortKey: -1753378973245
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8084/usuario/a1b2c3d4-e5f6-7890-1234-123456abcdef
+        name: User Public Data By Id
+        meta:
+          id: req_fdc060e5e19d46809b297cfbe31979d2
+          created: 1753379898655
+          modified: 1753379966383
+          isPrivate: false
+          description: ""
+          sortKey: -1753379898655
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_1348e864b3a873a43176f9d7e7033f41cb5ce0e8
+    created: 1752711934762
+    modified: 1752711934762
+environments:
+  name: Base Environment
+  meta:
+    id: env_1348e864b3a873a43176f9d7e7033f41cb5ce0e8
+    created: 1752711934759
+    modified: 1752712017080
+    isPrivate: false
+  data:
+    url: http://localhost:8080
